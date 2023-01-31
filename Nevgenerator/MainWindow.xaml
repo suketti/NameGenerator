@@ -1,0 +1,84 @@
+﻿<Window x:Class="Nevgenerator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nevgenerator"
+        mc:Ignorable="d"
+        Title="Névgenerátor" Height="600" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Margin="10 10 10 30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                <Button Height="20" VerticalAlignment="Center" Click="btnLoadLastNames_Click">Betöltés</Button>
+                <Label VerticalAlignment="Center">Családnevek</Label>
+                <Label VerticalAlignment="Center" x:Name="lbl_LastNameCounter">0</Label>
+            </StackPanel>
+            <ListBox Grid.Row="1" Background="BlanchedAlmond" Margin="0 0 0 5" x:Name="lbLastNames"></ListBox>
+            <ListBox x:Name="lbGeneratedNames" Grid.Row="2" Background="LightSalmon"></ListBox>
+        </Grid>
+        <Grid Grid.Column="1" Margin="10 10 10 30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                <Button Height="20" VerticalAlignment="Center" Click="btnLoadFirstNames_Click">Betöltés</Button>
+                <Label VerticalAlignment="Center">Utónevek</Label>
+                <Label VerticalAlignment="Center" x:Name="lbl_FirstNameCounter">0</Label>
+            </StackPanel>
+            <ListBox Grid.Row="1" Background="BlanchedAlmond" Margin="0 0 0 5" x:Name="lbFirstNames"></ListBox>
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Border Background="LightSeaGreen" CornerRadius="10" Padding="5" Grid.Row="0" Margin="0 5">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Utónevek száma:</Label>
+                            <RadioButton VerticalAlignment="Center" x:Name="rbSelectionOne">Egy</RadioButton>
+                            <RadioButton VerticalAlignment="Center" x:Name="rbSelectionTwo">Kettő</RadioButton>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Létrehozandó nevek száma</Label>
+                            <Border Background="Gray" Padding="1">
+                                <TextBox x:Name="txtbox_NameCount" Background="GreenYellow" HorizontalContentAlignment="Center" Width="30" Height="30" FontStretch="Condensed" Text="{Binding Value, ElementName=slider_nameCount, Mode=TwoWay, FallbackValue=0}" TextAlignment="Center"></TextBox>
+                            </Border>
+                        </StackPanel>
+                        <DockPanel>
+                            <Label DockPanel.Dock="Left" Width="20">0</Label>
+                            <Label x:Name="lblMaxNameCount"  DockPanel.Dock="Right"></Label>
+                            <Slider x:Name="sliderNameCount" Minimum="0" Maximum="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" TickFrequency="1" Value="{Binding Text, ElementName=txtbox_NameCount, Mode=TwoWay}" ValueChanged="sliderNameCount_ValueChanged"></Slider>
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+                <Button Grid.Row="1" Click="btnGenerateNames_Click">Nevek generálása</Button>
+                <Button Grid.Row="2" Click="btnDeleteNames_Click">Generált nevek törlése</Button>
+                <Button Grid.Row="3" Click="btnSortNames_Click">Nevek rendezése</Button>
+                <Button Grid.Row="4" Click="btnSaveNames_Click">Nevek mentése</Button>
+            </Grid>
+        </Grid>
+        <StatusBar VerticalAlignment="Bottom" Grid.ColumnSpan="2">
+            <StatusBarItem>
+                <TextBlock x:Name="textBlockGeneratedNameCount">Generált nevek száma: 0</TextBlock>
+            </StatusBarItem>
+            <Separator></Separator>
+            <StatusBarItem>
+                <TextBlock x:Name="textBlockSortedStatus"></TextBlock>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
